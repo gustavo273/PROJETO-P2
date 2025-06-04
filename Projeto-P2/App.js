@@ -1,15 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import 'react-native-gesture-handler';
 import { PaperProvider } from 'react-native-paper';
-import StackRoutes from './src/routes/StackRoutes';
+import FilmeStack from './src/Filmes/FilmeStack';
+import { createDrawerNavigator } from '@react-navigation/drawer'
+
+import LoginScreen from './src/screens/LoginScreen.jsx'
+
+const Drawer = createDrawerNavigator()
 
 export default function App() {
   return (
-    <View >
-      <PaperProvider>
-        <StackRoutes/>
-      </PaperProvider>
-    </View>
+
+    <PaperProvider>
+      <NavigationContainer>
+        <FilmeStack />
+      </NavigationContainer>
+        
+    </PaperProvider>
+
   );
 }
 
