@@ -2,51 +2,51 @@ import { useState } from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
 import { Button, Text, TextInput } from 'react-native-paper'
-import SerieService from './SerieService'
+import AnimeService from './AnimeService'
 
-export default function SerieForm({ navigation, route }) {
-  const serieAntiga = route.params || {}
+export default function AnimeForm({ navigation, route }) {
+  const animeAntigo = route.params || {}
 
-  const [titulo, setTitulo] = useState(serieAntiga.titulo || '')
-  const [genero, setGenero] = useState(serieAntiga.genero || '')
-  const [temporadas, setTemporadas] = useState(serieAntiga.temporadas || '')
-  const [episodios, setEpisodios] = useState(serieAntiga.episodios || '')
-  const [dataEstreia, setDataEstreia] = useState(serieAntiga.dataEstreia || '')
-  const [imagemUrl, setImagemUrl] = useState(serieAntiga.imagemUrl || '')
+  const [titulo, setTitulo] = useState(animeAntigo.titulo || '')
+  const [genero, setGenero] = useState(animeAntigo.genero || '')
+  const [duracao, setDuracao] = useState(animeAntigo.duracao || '')
+  const [dataLancamento, setDataLancamento] = useState(animeAntigo.dataLancamento || '')
+  const [classificacao, setClassificacao] = useState(animeAntigo.classificacao || '')
+  const [imagemUrl, setImagemUrl] = useState(animeAntigo.imagemUrl || '')
 
   async function salvar() {
-    if (!titulo || !genero || !temporadas || !episodios || !dataEstreia || !imagemUrl) {
+    if (!titulo || !genero || !duracao || !dataLancamento || !classificacao || !imagemUrl) {
       alert('Preencha todos os campos!')
       return
     }
 
-    const serie = {
+    const anime = {
       titulo,
       genero,
-      temporadas,
-      episodios,
-      dataEstreia,
+      duracao,
+      dataLancamento,
+      classificacao,
       imagemUrl
     }
 
-    if (serieAntiga.id) {
-      serie.id = serieAntiga.id
-      await SerieService.atualizar(serie)
-      alert('Série atualizada com sucesso!')
+    if (animeAntigo.id) {
+      anime.id = animeAntigo.id
+      await AnimeService.atualizar(anime)
+      alert('Anime atualizado com sucesso!')
     } else {
-      await SerieService.salvar(serie)
-      alert('Série cadastrada com sucesso!')
+      await AnimeService.salvar(anime)
+      alert('Anime cadastrado com sucesso!')
     }
 
     navigation.reset({
       index: 0,
-      routes: [{ name: 'SerieLista' }]
+      routes: [{ name: 'AnimeLista' }]
     })
   }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="headlineMedium" style={styles.title}>Cadastro de Série</Text>
+      <Text variant="headlineMedium" style={styles.title}>Cadastro de Anime</Text>
 
       <TextInput
         label="Título"
@@ -65,28 +65,19 @@ export default function SerieForm({ navigation, route }) {
       />
 
       <TextInput
-        label="Temporadas"
+        label="Duração (min)"
         mode="outlined"
-        value={temporadas.toString()}
-        onChangeText={setTemporadas}
+        value={duracao.toString()}
+        onChangeText={setDuracao}
         keyboardType="numeric"
         style={styles.input}
       />
 
       <TextInput
-        label="Episódios"
+        label="Data de Lançamento"
         mode="outlined"
-        value={episodios.toString()}
-        onChangeText={setEpisodios}
-        keyboardType="numeric"
-        style={styles.input}
-      />
-
-      <TextInput
-        label="Data de Estreia"
-        mode="outlined"
-        value={dataEstreia}
-        onChangeText={setDataEstreia}
+        value={dataLancamento}
+        onChangeText={setDataLancamento}
         keyboardType="numeric"
         render={props => (
           <TextInputMask
@@ -99,6 +90,14 @@ export default function SerieForm({ navigation, route }) {
       />
 
       <TextInput
+        label="Classificação Indicativa"
+        mode="outlined"
+        value={classificacao}
+        onChangeText={setClassificacao}
+        style={styles.input}
+      />
+
+      <TextInput
         label="Imagem (URL da capa)"
         mode="outlined"
         value={imagemUrl}
@@ -107,7 +106,7 @@ export default function SerieForm({ navigation, route }) {
       />
 
       <Button mode="contained" onPress={salvar} style={styles.button}>
-        Salvar Série
+        Salvar Anime
       </Button>
     </ScrollView>
   )

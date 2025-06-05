@@ -4,7 +4,7 @@ import { Button, Card, Text } from 'react-native-paper'
 import Carousel from 'react-native-reanimated-carousel'
 import FilmeService from './FilmeService'
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
+const { width: screenWidth } = Dimensions.get('window')
 
 export default function FilmeLista({ navigation }) {
   const [filmes, setFilmes] = useState([])
@@ -82,32 +82,47 @@ export default function FilmeLista({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: 'black'
-  },
-  botaoCadastrar: {
-    marginBottom: 20,
-    alignSelf: 'center',
-    width: '90%',
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingBottom: 40,
+    backgroundColor: '#f9f9f9', // fundo claro e neutro
   },
   card: {
-    borderRadius: 10,
+    borderRadius: 15,
     overflow: 'hidden',
-    width: screenWidth * 0.85,
-    elevation: 5,
-    backgroundColor:'#f0f0f0'
+    width: screenWidth * 0.9,
+    marginVertical: 12,
+    backgroundColor: 'white',
+    elevation: 6, // sombra suave para destaque
   },
   image: {
-    height: screenWidth * 0.5,
+    height: screenWidth * 0.55,
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  subtitle: {
+    color: '#777',
+    fontSize: 14,
+    marginBottom: 8,
+  },
+  contentText: {
+    fontSize: 14,
+    marginBottom: 4,
+    color: '#444',
+  },
+  actions: {
+    justifyContent: 'flex-end',
+    paddingHorizontal: 8,
+    paddingBottom: 8,
+  },
+  button: {
+    marginHorizontal: 8,
+  },
+  btnAdd: {
+    marginBottom: 20,
+    marginHorizontal: 20,
   },
 })
