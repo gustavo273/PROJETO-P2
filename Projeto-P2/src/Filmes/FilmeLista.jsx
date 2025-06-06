@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Dimensions, StyleSheet, ScrollView } from 'react-native'
-import { Button, Card, Text } from 'react-native-paper'
+import { Button, Card, Text, FAB, Divider, Chip } from 'react-native-paper'
 import Carousel from 'react-native-reanimated-carousel'
 import FilmeService from './FilmeService'
 
@@ -29,11 +29,18 @@ export default function FilmeLista({ navigation }) {
       {item.imagemUrl ? (
         <Card.Cover source={{ uri: item.imagemUrl }} style={styles.image} />
       ) : null}
-      <Card.Title title={item.titulo} subtitle={item.genero} />
+      <Card.Title title={item.titulo} />
       <Card.Content>
+        <Text>Gênero:{item.genero}</Text>
+        <Divider style={{ marginVertical: 8 }} />
         <Text>Duração: {item.duracao} min</Text>
+        <Divider style={{ marginVertical: 8 }} />
         <Text>Lançamento: {item.dataLancamento}</Text>
-        <Text>Classificação: {item.classificacao}</Text>
+        <Divider style={{ marginVertical: 8 }} />
+        <Text>Classificação:</Text>
+        <Chip icon="star" style={{ marginTop: 10 }}>
+          {item.classificacao}
+        </Chip>
       </Card.Content>
       <Card.Actions>
         <Button icon="pencil" onPress={() => navigation.navigate('FilmeForm', item)} />
@@ -44,14 +51,7 @@ export default function FilmeLista({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Button
-        icon="plus"
-        mode="contained"
-        onPress={() => navigation.navigate('FilmeForm')}
-        style={styles.botaoCadastrar}
-      >
-        Cadastrar Filme
-      </Button>
+
 
       {filmes.length === 0 && (
         <Text style={{ textAlign: 'center', marginTop: 40 }}>Nenhum filme cadastrado</Text>
@@ -77,8 +77,17 @@ export default function FilmeLista({ navigation }) {
           renderItem={({ index }) => renderCard(filmes[index])}
           mode="parallax"
         />
+
       )}
+      <FAB
+        icon="plus"
+        label="Cadastrar"
+        style={styles.fab}
+        onPress={() => navigation.navigate('FilmeForm')}
+      />
+
     </View>
+
   )
 }
 
@@ -86,17 +95,18 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 20,
-    backgroundColor: '#f9f9f9', // fundo claro e neutro
+    backgroundColor: 'grey', // fundo claro e neutro
   },
   card: {
-    borderRadius: 15,
-    overflow: 'hidden',
-    width: screenWidth * 0.9,
-    marginVertical: 12,
-    backgroundColor: 'white',
-    elevation: 6, // sombra suave para destaque
-  },
-  image: {
+  borderRadius: 15,
+  overflow: 'hidden',
+  width: screenWidth * 0.9,
+  marginVertical: 12,
+  backgroundColor: 'white',
+  elevation: 6,
+  alignSelf: 'center', // <- Isso centraliza o card
+},
+image: {
     height: screenWidth * 0.55,
   },
   title: {
@@ -124,5 +134,11 @@ export const styles = StyleSheet.create({
   btnAdd: {
     marginBottom: 20,
     marginHorizontal: 20,
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 35,
   },
 })

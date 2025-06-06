@@ -4,15 +4,17 @@ import 'react-native-gesture-handler';
 import { PaperProvider } from 'react-native-paper';
 import FilmeStack from './src/Filmes/FilmeStack';
 import SerieStack from "./src/Series/SerieStack.jsx";
+import AnimeStack from "./src/Anime/AnimeStack.jsx";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import AnimeStack from "./src/Anime/AnimeStack.jsx";
+
 
 const Tab = createBottomTabNavigator();
 
 
 export default function App () {
   return (
+    <PaperProvider>
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -20,14 +22,21 @@ export default function App () {
             let iconName = route.name === 'Filmes' ? 'movie-open' : 'television-classic';
             return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
           },
-          headerShown: false
-        })}
-      >
+           tabBarStyle: {
+              backgroundColor: '#000',
+            },
+            tabBarActiveTintColor: '#fff',
+            tabBarInactiveTintColor: '#888',
+            headerShown: false
+          })}
+        >
         <Tab.Screen name="Filmes" component={FilmeStack} />
         <Tab.Screen name="Séries" component={SerieStack} />
         <Tab.Screen name="Animes" component={AnimeStack} />
       </Tab.Navigator>
     </NavigationContainer>
+    </PaperProvider>
+    
   );
 }
 

@@ -12,10 +12,11 @@ export default function SerieForm({ navigation, route }) {
   const [temporadas, setTemporadas] = useState(serieAntiga.temporadas || '')
   const [episodios, setEpisodios] = useState(serieAntiga.episodios || '')
   const [dataEstreia, setDataEstreia] = useState(serieAntiga.dataEstreia || '')
+  const [classificacao, setClassificacao] = useState(serieAntiga.classificacao || '')
   const [imagemUrl, setImagemUrl] = useState(serieAntiga.imagemUrl || '')
 
   async function salvar() {
-    if (!titulo || !genero || !temporadas || !episodios || !dataEstreia || !imagemUrl) {
+    if (!titulo || !genero || !temporadas || !episodios || !dataEstreia || !classificacao || !imagemUrl) {
       alert('Preencha todos os campos!')
       return
     }
@@ -26,6 +27,7 @@ export default function SerieForm({ navigation, route }) {
       temporadas,
       episodios,
       dataEstreia,
+      classificacao,
       imagemUrl
     }
 
@@ -95,6 +97,13 @@ export default function SerieForm({ navigation, route }) {
             options={{ format: 'DD/MM/YYYY' }}
           />
         )}
+        style={styles.input}
+      />
+      <TextInput
+        label="Classificação Indicativa"
+        mode="outlined"
+        value={classificacao}
+        onChangeText={setClassificacao}
         style={styles.input}
       />
 

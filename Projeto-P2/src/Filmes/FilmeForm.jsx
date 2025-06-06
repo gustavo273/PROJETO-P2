@@ -115,7 +115,8 @@ export default function FilmeForm({ navigation, route }) {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor:''
   },
   title: {
     marginBottom: 10
