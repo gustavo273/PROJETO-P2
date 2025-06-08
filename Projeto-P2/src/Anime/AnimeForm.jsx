@@ -54,6 +54,7 @@ export default function AnimeForm({ navigation, route }) {
         value={titulo}
         onChangeText={setTitulo}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -62,6 +63,7 @@ export default function AnimeForm({ navigation, route }) {
         value={genero}
         onChangeText={setGenero}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -71,6 +73,7 @@ export default function AnimeForm({ navigation, route }) {
         onChangeText={setDuracao}
         keyboardType="numeric"
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -87,6 +90,7 @@ export default function AnimeForm({ navigation, route }) {
           />
         )}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -95,6 +99,7 @@ export default function AnimeForm({ navigation, route }) {
         value={classificacao}
         onChangeText={setClassificacao}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -103,9 +108,10 @@ export default function AnimeForm({ navigation, route }) {
         value={imagemUrl}
         onChangeText={setImagemUrl}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
-      <Button mode="contained" onPress={salvar} style={styles.button}>
+      <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">
         Salvar Anime
       </Button>
     </ScrollView>

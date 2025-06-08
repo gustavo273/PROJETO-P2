@@ -8,11 +8,18 @@ const Stack = createStackNavigator()
 
 export default function AnimeStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator  screenOptions={{
+      headerStyle: {
+        backgroundColor: 'black', 
+      },
+      headerTintColor: 'white', 
+      headerTitleAlign: 'center',
+    }}
+  >
       <Stack.Screen
         name="AnimeLista"
         component={AnimeLista}
-        options={{ title: 'Animes', headerTitleAlign: 'center' }}
+        options={{ title: 'ANIMES', headerTitleAlign: 'center' }}
       />
       <Stack.Screen
         name="AnimeForm"

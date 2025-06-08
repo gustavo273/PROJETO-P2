@@ -8,11 +8,18 @@ const Stack = createStackNavigator()
 
 export default function FilmeStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator  screenOptions={{
+      headerStyle: {
+        backgroundColor: 'black', 
+      },
+      headerTintColor: 'white', 
+      headerTitleAlign: 'center',
+    }}
+  >
       <Stack.Screen
         name="FilmeLista"
         component={FilmeLista}
-        options={{ title: 'Filmes', headerTitleAlign: 'center' }}
+        options={{ title: 'FILMES', headerTitleAlign: 'center' }}
       />
       <Stack.Screen
         name="FilmeForm"

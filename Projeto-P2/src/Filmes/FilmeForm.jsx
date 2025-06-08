@@ -54,6 +54,7 @@ export default function FilmeForm({ navigation, route }) {
         value={titulo}
         onChangeText={setTitulo}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -62,6 +63,7 @@ export default function FilmeForm({ navigation, route }) {
         value={genero}
         onChangeText={setGenero}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -71,6 +73,7 @@ export default function FilmeForm({ navigation, route }) {
         onChangeText={setDuracao}
         keyboardType="numeric"
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -87,6 +90,7 @@ export default function FilmeForm({ navigation, route }) {
           />
         )}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -95,6 +99,7 @@ export default function FilmeForm({ navigation, route }) {
         value={classificacao}
         onChangeText={setClassificacao}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
       <TextInput
@@ -103,9 +108,10 @@ export default function FilmeForm({ navigation, route }) {
         value={imagemUrl}
         onChangeText={setImagemUrl}
         style={styles.input}
+        theme={{ roundness: 25 }} 
       />
 
-      <Button mode="contained" onPress={salvar} style={styles.button}>
+      <Button mode="contained" onPress={salvar} style={styles.button}  buttonColor="green">
         Salvar Filme
       </Button>
     </ScrollView>
@@ -119,12 +125,12 @@ const styles = StyleSheet.create({
     backgroundColor:''
   },
   title: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   input: {
     width: '100%',
-    marginVertical: 8
-  },
+    marginVertical: 8,
+},
   button: {
     width: '100%',
     marginTop: 16

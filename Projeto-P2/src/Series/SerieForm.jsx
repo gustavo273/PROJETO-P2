@@ -56,6 +56,7 @@ export default function SerieForm({ navigation, route }) {
         value={titulo}
         onChangeText={setTitulo}
         style={styles.input}
+        theme={{ roundness: 25 }}
       />
 
       <TextInput
@@ -64,6 +65,7 @@ export default function SerieForm({ navigation, route }) {
         value={genero}
         onChangeText={setGenero}
         style={styles.input}
+        theme={{ roundness: 25 }}
       />
 
       <TextInput
@@ -73,6 +75,7 @@ export default function SerieForm({ navigation, route }) {
         onChangeText={setTemporadas}
         keyboardType="numeric"
         style={styles.input}
+        theme={{ roundness: 25 }}
       />
 
       <TextInput
@@ -82,6 +85,7 @@ export default function SerieForm({ navigation, route }) {
         onChangeText={setEpisodios}
         keyboardType="numeric"
         style={styles.input}
+        theme={{ roundness: 25 }}
       />
 
       <TextInput
@@ -98,6 +102,7 @@ export default function SerieForm({ navigation, route }) {
           />
         )}
         style={styles.input}
+        theme={{ roundness: 25 }}
       />
       <TextInput
         label="Classificação Indicativa"
@@ -105,6 +110,7 @@ export default function SerieForm({ navigation, route }) {
         value={classificacao}
         onChangeText={setClassificacao}
         style={styles.input}
+        theme={{ roundness: 25 }}
       />
 
       <TextInput
@@ -113,9 +119,10 @@ export default function SerieForm({ navigation, route }) {
         value={imagemUrl}
         onChangeText={setImagemUrl}
         style={styles.input}
+        theme={{ roundness: 25 }}
       />
 
-      <Button mode="contained" onPress={salvar} style={styles.button}>
+      <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">
         Salvar Série
       </Button>
     </ScrollView>

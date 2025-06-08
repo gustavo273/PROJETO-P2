@@ -33,6 +33,7 @@
     "react-native-screens": "~4.11.1",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-vector-icons": "^10.2.0",
+    "yarn": "^1.22.22",
     "yup": "^1.6.1"
   },
   "devDependencies": {

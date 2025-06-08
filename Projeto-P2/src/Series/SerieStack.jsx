@@ -8,11 +8,18 @@ const Stack = createStackNavigator()
 
 export default function SerieStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator  screenOptions={{
+      headerStyle: {
+        backgroundColor: 'black', 
+      },
+      headerTintColor: 'white', 
+      headerTitleAlign: 'center',
+    }}
+  >
       <Stack.Screen
         name="SerieLista"
         component={SerieLista}
-        options={{ title: 'Séries', headerTitleAlign: 'center' }}
+        options={{ title: 'SÉRIES', headerTitleAlign: 'center' }}
       />
       <Stack.Screen
         name="SerieForm"

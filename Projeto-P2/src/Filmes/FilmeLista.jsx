@@ -1,60 +1,87 @@
-import React, { useEffect, useState } from 'react'
-import { View, Dimensions, StyleSheet, ScrollView } from 'react-native'
-import { Button, Card, Text, FAB, Divider, Chip } from 'react-native-paper'
-import Carousel from 'react-native-reanimated-carousel'
-import FilmeService from './FilmeService'
+import React, { useEffect, useState } from "react";
+import { View, Dimensions, StyleSheet, ScrollView, Alert } from "react-native";
+import { Button, Card, Text, FAB, Divider, Chip } from "react-native-paper";
+import Carousel from "react-native-reanimated-carousel";
+import FilmeService from "./FilmeService";
 
-const { width: screenWidth } = Dimensions.get('window')
+const { width: screenWidth } = Dimensions.get("window");
 
 export default function FilmeLista({ navigation }) {
-  const [filmes, setFilmes] = useState([])
+  const [filmes, setFilmes] = useState([]);
 
   useEffect(() => {
-    buscarFilmes()
-  }, [])
+    buscarFilmes();
+  }, []);
 
   async function buscarFilmes() {
-    const lista = await FilmeService.listar()
-    setFilmes(lista)
+    const lista = await FilmeService.listar();
+    setFilmes(lista);
   }
 
   async function removerFilme(id) {
-    await FilmeService.remover(id)
-    alert('Filme excluído com sucesso!')
-    buscarFilmes()
+    await FilmeService.remover(id);
+    alert("Filme excluído com sucesso!");
+    buscarFilmes();
+  }
+  function confirmarRemocao(id) {
+    Alert.alert(
+      "Confirmar exclusão",
+      "Tem certeza que deseja excluir este filme?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Excluir",
+          style: "destructive",
+          onPress: () => removerFilme(id),
+        },
+      ]
+    );
   }
 
   const renderCard = (item) => (
     <Card style={styles.card} key={item.id} elevation={5}>
-      {item.imagemUrl ? (
-        <Card.Cover source={{ uri: item.imagemUrl }} style={styles.image} />
-      ) : null}
-      <Card.Title title={item.titulo} />
-      <Card.Content>
-        <Text>Gênero:{item.genero}</Text>
-        <Divider style={{ marginVertical: 8 }} />
-        <Text>Duração: {item.duracao} min</Text>
-        <Divider style={{ marginVertical: 8 }} />
-        <Text>Lançamento: {item.dataLancamento}</Text>
-        <Divider style={{ marginVertical: 8 }} />
-        <Text>Classificação:</Text>
-        <Chip icon="star" style={{ marginTop: 10 }}>
-          {item.classificacao}
-        </Chip>
-      </Card.Content>
-      <Card.Actions>
-        <Button icon="pencil" onPress={() => navigation.navigate('FilmeForm', item)} />
-        <Button icon="delete" onPress={() => removerFilme(item.id)} />
+      <View style={styles.row}>
+        {item.imagemUrl ? (
+          <View style={styles.imageContainer}>
+            <Card.Cover source={{ uri: item.imagemUrl }} style={styles.image} />
+          </View>
+        ) : null}
+        <View style={styles.infoContainer}>
+          <Card.Title title={item.titulo} titleStyle={{ fontWeight: "bold" }} />
+
+          <Card.Content>
+            <Text>Gênero: {item.genero}</Text>
+            <Divider style={{ marginVertical: 4 }} />
+            <Text>Duração: {item.duracao} min</Text>
+            <Divider style={{ marginVertical: 4 }} />
+            <Text>Lançamento: {item.dataLancamento}</Text>
+            <Divider style={{ marginVertical: 4 }} />
+            <Text>Classificação:</Text>
+            <Chip icon="star" style={{ marginTop: 6 }}>
+              {item.classificacao}
+            </Chip>
+          </Card.Content>
+        </View>
+      </View>
+      <Card.Actions style={styles.actions}>
+        <Button
+          icon="pencil"
+          onPress={() => navigation.navigate("FilmeForm", item)}
+        />
+        <Button icon="delete" onPress={() => confirmarRemocao(item.id)} buttonColor="red" />
       </Card.Actions>
     </Card>
-  )
+  );
 
   return (
     <View style={styles.container}>
-
-
       {filmes.length === 0 && (
-        <Text style={{ textAlign: 'center', marginTop: 40 }}>Nenhum filme cadastrado</Text>
+        <Text style={{ textAlign: "center", marginTop: 40 }}>
+          Nenhum filme cadastrado
+        </Text>
       )}
 
       {filmes.length === 1 && (
@@ -77,54 +104,51 @@ export default function FilmeLista({ navigation }) {
           renderItem={({ index }) => renderCard(filmes[index])}
           mode="parallax"
         />
-
       )}
       <FAB
         icon="plus"
         label="Cadastrar"
         style={styles.fab}
-        onPress={() => navigation.navigate('FilmeForm')}
+        onPress={() => navigation.navigate("FilmeForm")}
       />
-
     </View>
-
-  )
+  );
 }
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
-    backgroundColor: 'grey', // fundo claro e neutro
+    paddingTop: 25,
+    backgroundColor: "grey",
   },
   card: {
-  borderRadius: 15,
-  overflow: 'hidden',
-  width: screenWidth * 0.9,
-  marginVertical: 12,
-  backgroundColor: 'white',
-  elevation: 6,
-  alignSelf: 'center', // <- Isso centraliza o card
-},
-image: {
+    borderRadius: 15,
+    overflow: "hidden",
+    width: screenWidth * 0.9,
+    marginVertical: 12,
+    backgroundColor: "white",
+    elevation: 6,
+    alignSelf: "center", 
+  },
+  image: {
     height: screenWidth * 0.55,
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
   subtitle: {
-    color: '#777',
+    color: "#777",
     fontSize: 14,
     marginBottom: 8,
   },
   contentText: {
     fontSize: 14,
     marginBottom: 4,
-    color: '#444',
+    color: "#444",
   },
   actions: {
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     paddingHorizontal: 8,
     paddingBottom: 8,
   },
@@ -136,9 +160,31 @@ image: {
     marginHorizontal: 20,
   },
   fab: {
-    position: 'absolute',
+    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 35,
   },
-})
+  row: {
+    row: {
+      flexDirection: "row",
+      padding: 10,
+      alignItems: "center", 
+    },
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    width: 200,
+    height: 250,
+    borderRadius: 10,
+  },
+  infoContainer: {
+    flex: 1, 
+    paddingLeft: 10,
+    justifyContent: "center",
+  },
+});
