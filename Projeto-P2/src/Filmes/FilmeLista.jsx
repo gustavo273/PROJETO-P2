@@ -50,20 +50,25 @@ export default function FilmeLista({ navigation }) {
           </View>
         ) : null}
         <View style={styles.infoContainer}>
-          <Card.Title title={item.titulo} titleStyle={{ fontWeight: "bold" }} />
+          <Card.Title title={item.titulo} titleStyle={{ fontWeight: "bold", color:"white" }} />
 
           <Card.Content>
-            <Text>Gênero: {item.genero}</Text>
-            <Divider style={{ marginVertical: 4 }} />
-            <Text>Duração: {item.duracao} min</Text>
-            <Divider style={{ marginVertical: 4 }} />
-            <Text>Lançamento: {item.dataLancamento}</Text>
-            <Divider style={{ marginVertical: 4 }} />
-            <Text>Classificação:</Text>
-            <Chip icon="star" style={{ marginTop: 6 }}>
+            <Text style={{ color: 'white' }}>Gênero: {item.genero}</Text>
+            <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
+            <Text style={{ color: 'white' }}>Duração: {item.duracao} min</Text>
+            <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
+            <Text style={{ color: 'white' }}>Lançamento: {item.dataLancamento}</Text>
+            <Divider style={{ marginVertical: 11, backgroundColor:'' }} />
+            <Text style={{ color: 'white' }}>Classificação:</Text>
+            <Chip
+              icon="star"
+              style={{ marginTop: 6, backgroundColor: 'black' }}
+              textStyle={{ color: 'white' }}
+            >
               {item.classificacao}
             </Chip>
           </Card.Content>
+
         </View>
       </View>
       <Card.Actions style={styles.actions}>
@@ -98,12 +103,15 @@ export default function FilmeLista({ navigation }) {
           loop
           width={screenWidth}
           height={screenWidth * 1.2}
-          autoPlay={false}
+          autoPlay={true}
+          autoPlayInterval={3000}
           data={filmes}
           scrollAnimationDuration={500}
           renderItem={({ index }) => renderCard(filmes[index])}
           mode="parallax"
         />
+
+
       )}
       <FAB
         icon="plus"
@@ -122,55 +130,19 @@ export const styles = StyleSheet.create({
     backgroundColor: "grey",
   },
   card: {
-    borderRadius: 15,
+    borderRadius: 20,
     overflow: "hidden",
-    width: screenWidth * 0.9,
-    marginVertical: 12,
-    backgroundColor: "white",
+    width: screenWidth * 0.95,
+    marginVertical: 16,
+     backgroundColor: '#121212',
     elevation: 6,
-    alignSelf: "center", 
-  },
-  image: {
-    height: screenWidth * 0.55,
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  subtitle: {
-    color: "#777",
-    fontSize: 14,
-    marginBottom: 8,
-  },
-  contentText: {
-    fontSize: 14,
-    marginBottom: 4,
-    color: "#444",
-  },
-  actions: {
-    justifyContent: "flex-end",
-    paddingHorizontal: 8,
-    paddingBottom: 8,
-  },
-  button: {
-    marginHorizontal: 8,
-  },
-  btnAdd: {
-    marginBottom: 20,
-    marginHorizontal: 20,
-  },
-  fab: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 35,
+    alignSelf: "center",
+    paddingBottom: 10,
   },
   row: {
-    row: {
-      flexDirection: "row",
-      padding: 10,
-      alignItems: "center", 
-    },
+    flexDirection: "row",
+    padding: 12,
+    gap: 10,
   },
   imageContainer: {
     flex: 1,
@@ -178,13 +150,25 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    width: 200,
-    height: 250,
-    borderRadius: 10,
+    width: 140,
+    height: 200,
+    borderRadius: 12,
+    resizeMode: "cover",
   },
   infoContainer: {
-    flex: 1, 
-    paddingLeft: 10,
+    flex: 1.5,
+    paddingLeft: 12,
     justifyContent: "center",
+  },
+  actions: {
+    justifyContent: "flex-end",
+    paddingHorizontal: 12,
+    paddingTop: 8,
+  },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 35,
   },
 });

@@ -89,7 +89,7 @@ export default function SerieForm({ navigation, route }) {
       />
 
       <TextInput
-        label="Data de Estreia"
+        label="Ano de Lançamento"
         mode="outlined"
         value={dataEstreia}
         onChangeText={setDataEstreia}
@@ -98,7 +98,7 @@ export default function SerieForm({ navigation, route }) {
           <TextInputMask
             {...props}
             type={'datetime'}
-            options={{ format: 'DD/MM/YYYY' }}
+            options={{ format: 'YYYY' }}
           />
         )}
         style={styles.input}

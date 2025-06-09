@@ -77,7 +77,7 @@ export default function AnimeForm({ navigation, route }) {
       />
 
       <TextInput
-        label="Data de Lançamento"
+        label="Ano de Lançamento"
         mode="outlined"
         value={dataLancamento}
         onChangeText={setDataLancamento}
@@ -86,7 +86,7 @@ export default function AnimeForm({ navigation, route }) {
           <TextInputMask
             {...props}
             type={'datetime'}
-            options={{ format: 'DD/MM/YYYY' }}
+            options={{ format: 'YYYY' }}
           />
         )}
         style={styles.input}
