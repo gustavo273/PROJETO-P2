@@ -48,7 +48,7 @@ export default function AnimeLista({ navigation }) {
           <Card.Content>
             <Text style={{ color: "white" }}>Gênero: {item.genero}</Text>
             <Divider style={{ marginVertical: 11, backgroundColor: "white" }} />
-            <Text style={{ color: "white" }}>Episódios: {item.episodios}</Text>
+            <Text style={{ color: "white" }}>Duração: {item.duração}</Text>
             <Divider style={{ marginVertical: 11, backgroundColor: "white" }} />
             <Text style={{ color: "white" }}>Lançamento: {item.dataLancamento}</Text>
             <Divider style={{ marginVertical: 11, backgroundColor: "" }} />
@@ -127,13 +127,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     padding: 12,
-    gap: 10,
   },
   imageContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
     borderRadius: 12,
     padding: 4,
   },

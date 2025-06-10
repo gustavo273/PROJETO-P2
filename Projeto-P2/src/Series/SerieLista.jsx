@@ -50,8 +50,8 @@ export default function SerieLista({ navigation }) {
             <Divider style={{ marginVertical: 11, backgroundColor: "white" }} />
             <Text style={{ color: "white" }}>Temporadas: {item.temporadas}</Text>
             <Divider style={{ marginVertical: 11, backgroundColor: "white" }} />
-            <Text style={{ color: "white" }}>Lançamento: {item.dataLancamento}</Text>
-            <Divider style={{ marginVertical: 11, backgroundColor: "" }} />
+            <Text style={{ color: "white" }}>Lançamento: {item.dataEstreia}</Text>
+            <Divider style={{ marginVertical: 11, backgroundColor: "white" }} />
             <Text style={{ color: "white" }}>Classificação:</Text>
             <Chip
               icon="star"
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 25,
-    backgroundColor: "grey", // fundo escuro da tela
+    backgroundColor: "grey", 
   },
   card: {
     borderRadius: 20,
@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black",
     borderRadius: 12,
     padding: 4,
   },

@@ -1,8 +1,22 @@
 import { useState } from 'react'
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
-import { Button, Text, TextInput } from 'react-native-paper'
+import { Button, Text, TextInput, PaperProvider, DefaultTheme  } from 'react-native-paper'
 import FilmeService from './FilmeService'
+
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'white',
+    onSurfaceVariant: 'white',
+    onSurface: 'white',
+    outline: 'white',
+    surfaceVariant: 'black',
+    onSurfaceDisabled: 'gray'
+  },
+};
 
 export default function FilmeForm({ navigation, route }) {
   const filmeAntigo = route.params || {}
@@ -45,92 +59,97 @@ export default function FilmeForm({ navigation, route }) {
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="headlineMedium" style={styles.title}>Cadastro de Filme</Text>
+    <PaperProvider theme={theme}>
+      <View style={styles.container}>
+        <Text variant="headlineMedium" style={[styles.title, { fontWeight: 'bold' }]}>{"Cadastro".toUpperCase()}</Text>
 
-      <TextInput
-        label="Título"
-        mode="outlined"
-        value={titulo}
-        onChangeText={setTitulo}
-        style={styles.input}
-        theme={{ roundness: 25 }} 
-      />
+        <TextInput
+          label="Título"
+          mode="outlined"
+          value={titulo}
+          onChangeText={setTitulo}
+          style={styles.input}
+          theme={{ roundness: 25 }}
+        />
 
-      <TextInput
-        label="Gênero"
-        mode="outlined"
-        value={genero}
-        onChangeText={setGenero}
-        style={styles.input}
-        theme={{ roundness: 25 }} 
-      />
+        <TextInput
+          label="Gênero"
+          mode="outlined"
+          value={genero}
+          onChangeText={setGenero}
+          style={styles.input}
+          theme={{ roundness: 25 }}
+        />
 
-      <TextInput
-        label="Duração (min)"
-        mode="outlined"
-        value={duracao.toString()}
-        onChangeText={setDuracao}
-        keyboardType="numeric"
-        style={styles.input}
-        theme={{ roundness: 25 }} 
-      />
+        <TextInput
+          label="Duração (min)"
+          mode="outlined"
+          value={duracao.toString()}
+          onChangeText={setDuracao}
+          keyboardType="numeric"
+          style={styles.input}
+          theme={{ roundness: 25 }}
+        />
 
-      <TextInput
-        label="Ano de Lançamento"
-        mode="outlined"
-        value={dataLancamento}
-        onChangeText={setDataLancamento}
-        keyboardType="numeric"
-        render={props => (
-          <TextInputMask
-            {...props}
-            type={'datetime'}
-            options={{ format: 'YYYY' }}
-          />
-        )}
-        style={styles.input}
-        theme={{ roundness: 25 }} 
-      />
+        <TextInput
+          label="Ano de Lançamento"
+          mode="outlined"
+          value={dataLancamento}
+          onChangeText={setDataLancamento}
+          keyboardType="numeric"
+          render={props => (
+            <TextInputMask
+              {...props}
+              type={'datetime'}
+              options={{ format: 'YYYY' }}
+            />
+          )}
+          style={styles.input}
+          theme={{ roundness: 25 }}
+        />
 
-      <TextInput
-        label="Classificação Indicativa"
-        mode="outlined"
-        value={classificacao}
-        onChangeText={setClassificacao}
-        style={styles.input}
-        theme={{ roundness: 25 }} 
-      />
+        <TextInput
+          label="Classificação Indicativa"
+          mode="outlined"
+          value={classificacao}
+          onChangeText={setClassificacao}
+          style={styles.input}
+          theme={{ roundness: 25 }}
+        />
 
-      <TextInput
-        label="Imagem (URL da capa)"
-        mode="outlined"
-        value={imagemUrl}
-        onChangeText={setImagemUrl}
-        style={styles.input}
-        theme={{ roundness: 25 }} 
-      />
+        <TextInput
+          label="Imagem (URL da capa)"
+          mode="outlined"
+          value={imagemUrl}
+          onChangeText={setImagemUrl}
+          style={styles.input}
+          theme={{ roundness: 25 }}
+        />
 
-      <Button mode="contained" onPress={salvar} style={styles.button}  buttonColor="green">
-        Salvar Filme
-      </Button>
-    </ScrollView>
+        <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">
+          Salvar Filme
+        </Button>
+      </View>
+    </PaperProvider>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 20,
     alignItems: 'center',
-    backgroundColor:''
+    backgroundColor: 'grey'
   },
   title: {
     marginBottom: 10,
+    color: "white"
   },
   input: {
     width: '100%',
     marginVertical: 8,
-},
+    backgroundColor: "black"
+  },
   button: {
     width: '100%',
     marginTop: 16
