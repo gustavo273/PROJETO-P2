@@ -27,12 +27,46 @@ export default function SerieForm({ navigation, route }) {
   const [dataEstreia, setDataEstreia] = useState(serieAntiga.dataEstreia || '')
   const [classificacao, setClassificacao] = useState(serieAntiga.classificacao || '')
   const [imagemUrl, setImagemUrl] = useState(serieAntiga.imagemUrl || '')
+  const [errors, setErrors] = useState({})
+
+  function validar() {
+    const novoErros = {}
+
+    if (!titulo.trim()) novoErros.titulo = 'Título é obrigatório'
+    if (!genero.trim()) novoErros.genero = 'Gênero é obrigatório'
+
+    if (!temporadas) {
+      novoErros.temporadas = 'Temporadas é obrigatório'
+    } else if (isNaN(temporadas) || parseInt(temporadas) <= 0) {
+      novoErros.temporadas = 'Número inválido'
+    }
+
+    if (!episodios) {
+      novoErros.episodios = 'Episódios é obrigatório'
+    } else if (isNaN(episodios) || parseInt(episodios) <= 0) {
+      novoErros.episodios = 'Número inválido'
+    }
+
+    if (!dataEstreia) {
+      novoErros.dataEstreia = 'Ano de lançamento é obrigatório'
+    } else if (
+      isNaN(dataEstreia) ||
+      parseInt(dataEstreia) < 1900 ||
+      parseInt(dataEstreia) > new Date().getFullYear()
+    ) {
+      novoErros.dataEstreia = 'Ano inválido'
+    }
+
+    if (!classificacao.trim()) novoErros.classificacao = 'Classificação é obrigatória'
+    if (!imagemUrl.trim()) novoErros.imagemUrl = 'URL da imagem é obrigatória'
+
+    setErrors(novoErros)
+
+    return Object.keys(novoErros).length === 0
+  }
 
   async function salvar() {
-    if (!titulo || !genero || !temporadas || !episodios || !dataEstreia || !classificacao || !imagemUrl) {
-      alert('Preencha todos os campos!')
-      return
-    }
+    if (!validar()) return
 
     const serie = {
       titulo,
@@ -62,7 +96,7 @@ export default function SerieForm({ navigation, route }) {
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
-      <Text variant="headlineMedium" style={[styles.title, { fontWeight: 'bold' }]}>{"CADASTRO".toUpperCase()}</Text>
+        <Text variant="headlineMedium" style={[styles.title, { fontWeight: 'bold' }]}>{"CADASTRO".toUpperCase()}</Text>
 
         <TextInput
           label="Título"
@@ -71,7 +105,9 @@ export default function SerieForm({ navigation, route }) {
           onChangeText={setTitulo}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.titulo}
         />
+        {errors.titulo && <Text style={styles.errorText}>{errors.titulo}</Text>}
 
         <TextInput
           label="Gênero"
@@ -80,7 +116,9 @@ export default function SerieForm({ navigation, route }) {
           onChangeText={setGenero}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.genero}
         />
+        {errors.genero && <Text style={styles.errorText}>{errors.genero}</Text>}
 
         <TextInput
           label="Temporadas"
@@ -90,7 +128,9 @@ export default function SerieForm({ navigation, route }) {
           keyboardType="numeric"
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.temporadas}
         />
+        {errors.temporadas && <Text style={styles.errorText}>{errors.temporadas}</Text>}
 
         <TextInput
           label="Episódios"
@@ -100,7 +140,9 @@ export default function SerieForm({ navigation, route }) {
           keyboardType="numeric"
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.episodios}
         />
+        {errors.episodios && <Text style={styles.errorText}>{errors.episodios}</Text>}
 
         <TextInput
           label="Ano de Lançamento"
@@ -117,7 +159,10 @@ export default function SerieForm({ navigation, route }) {
           )}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.dataEstreia}
         />
+        {errors.dataEstreia && <Text style={styles.errorText}>{errors.dataEstreia}</Text>}
+
         <TextInput
           label="Classificação Indicativa"
           mode="outlined"
@@ -125,7 +170,9 @@ export default function SerieForm({ navigation, route }) {
           onChangeText={setClassificacao}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.classificacao}
         />
+        {errors.classificacao && <Text style={styles.errorText}>{errors.classificacao}</Text>}
 
         <TextInput
           label="Imagem (URL da capa)"
@@ -134,7 +181,9 @@ export default function SerieForm({ navigation, route }) {
           onChangeText={setImagemUrl}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.imagemUrl}
         />
+        {errors.imagemUrl && <Text style={styles.errorText}>{errors.imagemUrl}</Text>}
 
         <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">
           Salvar Série
@@ -149,7 +198,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     alignItems: 'center',
-    backgroundColor:'grey'
+    backgroundColor: 'grey'
   },
   title: {
     marginBottom: 10,
@@ -158,10 +207,17 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     marginVertical: 8,
-    backgroundColor:"black"
+    backgroundColor: "black"
   },
   button: {
     width: '100%',
     marginTop: 16
+  },
+  errorText: {
+    color: 'red',
+    alignSelf: 'flex-start',
+    marginTop: -5,
+    marginBottom: 8,
+    marginLeft: 4
   }
 })

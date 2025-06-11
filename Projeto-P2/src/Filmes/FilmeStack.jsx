@@ -19,7 +19,7 @@ export default function FilmeStack() {
       <Stack.Screen
         name="FilmeLista"
         component={FilmeLista}
-        options={{ title: 'Filmes', headerTitleAlign: 'center' }}
+        options={{ title: 'Cátalogo de Filmes', headerTitleAlign: 'center' }}
         
       />
       <Stack.Screen

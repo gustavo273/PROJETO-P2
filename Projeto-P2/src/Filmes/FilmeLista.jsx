@@ -50,7 +50,7 @@ export default function FilmeLista({ navigation }) {
           </View>
         ) : null}
         <View style={styles.infoContainer}>
-          <Card.Title title={item.titulo} titleStyle={{ fontWeight: "bold", color:"white" }} />
+          <Card.Title title={item.titulo} titleStyle={{ fontWeight: "bold", color: "white" }} />
 
           <Card.Content>
             <Text style={{ color: 'white' }}>Gênero: {item.genero}</Text>
@@ -58,7 +58,7 @@ export default function FilmeLista({ navigation }) {
             <Text style={{ color: 'white' }}>Duração: {item.duracao} min</Text>
             <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
             <Text style={{ color: 'white' }}>Lançamento: {item.dataLancamento}</Text>
-            <Divider style={{ marginVertical: 11, backgroundColor:'' }} />
+            <Divider style={{ marginVertical: 11, backgroundColor: '' }} />
             <Text style={{ color: 'white' }}>Classificação:</Text>
             <Chip
               icon="star"
@@ -113,12 +113,14 @@ export default function FilmeLista({ navigation }) {
 
 
       )}
-      <FAB
-        icon="plus"
-        label="Cadastrar"
-        style={styles.fab}
-        onPress={() => navigation.navigate("FilmeForm")}
-      />
+      <View style={{ alignItems: 'center', marginTop: 16 }}>
+        <FAB
+          icon="plus"
+          label="Cadastrar"
+          style={styles.fab}
+          onPress={() => navigation.navigate("FilmeForm")}
+        />
+      </View>
     </View>
   );
 }
@@ -134,7 +136,7 @@ export const styles = StyleSheet.create({
     overflow: "hidden",
     width: screenWidth * 0.95,
     marginVertical: 16,
-     backgroundColor: '#121212',
+    backgroundColor: '#121212',
     elevation: 6,
     alignSelf: "center",
     paddingBottom: 10,
@@ -166,9 +168,10 @@ export const styles = StyleSheet.create({
     paddingTop: 8,
   },
   fab: {
-    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 35,
+    backgroundColor: "",
+    bottom: 50
   },
 });

@@ -19,7 +19,7 @@ export default function SerieStack() {
       <Stack.Screen
         name="SerieLista"
         component={SerieLista}
-        options={{ title: 'SÉRIES', headerTitleAlign: 'center' }}
+        options={{ title: 'Cátalogo de Séries', headerTitleAlign: 'center' }}
       />
       <Stack.Screen
         name="SerieForm"

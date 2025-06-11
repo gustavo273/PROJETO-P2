@@ -19,7 +19,7 @@ export default function AnimeStack() {
       <Stack.Screen
         name="AnimeLista"
         component={AnimeLista}
-        options={{ title: 'ANIMES', headerTitleAlign: 'center' }}
+        options={{ title: 'Cátalogo de Animes', headerTitleAlign: 'center' }}
       />
       <Stack.Screen
         name="AnimeForm"

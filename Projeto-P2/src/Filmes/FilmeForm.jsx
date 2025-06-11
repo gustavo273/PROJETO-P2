@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TextInputMask } from 'react-native-masked-text'
-import { Button, Text, TextInput, PaperProvider, DefaultTheme  } from 'react-native-paper'
+import { Button, Text, TextInput, PaperProvider, DefaultTheme } from 'react-native-paper'
 import FilmeService from './FilmeService'
-
 
 const theme = {
   ...DefaultTheme,
@@ -27,12 +26,40 @@ export default function FilmeForm({ navigation, route }) {
   const [dataLancamento, setDataLancamento] = useState(filmeAntigo.dataLancamento || '')
   const [classificacao, setClassificacao] = useState(filmeAntigo.classificacao || '')
   const [imagemUrl, setImagemUrl] = useState(filmeAntigo.imagemUrl || '')
+  const [errors, setErrors] = useState({})
+
+  function validar() {
+    const novoErros = {}
+
+    if (!titulo.trim()) novoErros.titulo = 'Título é obrigatório'
+    if (!genero.trim()) novoErros.genero = 'Gênero é obrigatório'
+
+    if (!duracao) {
+      novoErros.duracao = 'Duração é obrigatória'
+    } else if (isNaN(duracao) || parseInt(duracao) <= 0) {
+      novoErros.duracao = 'Duração inválida'
+    }
+
+    if (!dataLancamento) {
+      novoErros.dataLancamento = 'Ano de lançamento é obrigatório'
+    } else if (
+      isNaN(dataLancamento) ||
+      parseInt(dataLancamento) < 1900 ||
+      parseInt(dataLancamento) > new Date().getFullYear()
+    ) {
+      novoErros.dataLancamento = 'Ano inválido'
+    }
+
+    if (!classificacao.trim()) novoErros.classificacao = 'Classificação é obrigatória'
+    if (!imagemUrl.trim()) novoErros.imagemUrl = 'URL da imagem é obrigatória'
+
+    setErrors(novoErros)
+
+    return Object.keys(novoErros).length === 0
+  }
 
   async function salvar() {
-    if (!titulo || !genero || !duracao || !dataLancamento || !classificacao || !imagemUrl) {
-      alert('Preencha todos os campos!')
-      return
-    }
+    if (!validar()) return
 
     const filme = {
       titulo,
@@ -70,7 +97,9 @@ export default function FilmeForm({ navigation, route }) {
           onChangeText={setTitulo}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.titulo}
         />
+        {errors.titulo && <Text style={styles.errorText}>{errors.titulo}</Text>}
 
         <TextInput
           label="Gênero"
@@ -79,7 +108,9 @@ export default function FilmeForm({ navigation, route }) {
           onChangeText={setGenero}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.genero}
         />
+        {errors.genero && <Text style={styles.errorText}>{errors.genero}</Text>}
 
         <TextInput
           label="Duração (min)"
@@ -89,7 +120,9 @@ export default function FilmeForm({ navigation, route }) {
           keyboardType="numeric"
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.duracao}
         />
+        {errors.duracao && <Text style={styles.errorText}>{errors.duracao}</Text>}
 
         <TextInput
           label="Ano de Lançamento"
@@ -106,7 +139,9 @@ export default function FilmeForm({ navigation, route }) {
           )}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.dataLancamento}
         />
+        {errors.dataLancamento && <Text style={styles.errorText}>{errors.dataLancamento}</Text>}
 
         <TextInput
           label="Classificação Indicativa"
@@ -115,7 +150,9 @@ export default function FilmeForm({ navigation, route }) {
           onChangeText={setClassificacao}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.classificacao}
         />
+        {errors.classificacao && <Text style={styles.errorText}>{errors.classificacao}</Text>}
 
         <TextInput
           label="Imagem (URL da capa)"
@@ -124,7 +161,9 @@ export default function FilmeForm({ navigation, route }) {
           onChangeText={setImagemUrl}
           style={styles.input}
           theme={{ roundness: 25 }}
+          error={!!errors.imagemUrl}
         />
+        {errors.imagemUrl && <Text style={styles.errorText}>{errors.imagemUrl}</Text>}
 
         <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">
           Salvar Filme
@@ -153,5 +192,14 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     marginTop: 16
+  },
+  errorText: {
+    color: 'red',
+    alignSelf: 'flex-start',
+    marginTop: -5,
+    marginBottom: 8,
+    marginLeft: 4
   }
 })
+
+ 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Dimensions, StyleSheet, ScrollView, Alert } from "react-native";
 import { Button, Card, Text, FAB, Divider, Chip } from "react-native-paper";
 import Carousel from "react-native-reanimated-carousel";
-import SerieService from "./SerieService"; // Trocar para o serviço correto
+import SerieService from "./SerieService";
 
 const { width: screenWidth } = Dimensions.get("window");
 
@@ -98,12 +98,14 @@ export default function SerieLista({ navigation }) {
         />
       )}
 
-      <FAB
-        icon="plus"
-        label="Cadastrar"
-        style={styles.fab}
-        onPress={() => navigation.navigate("SerieForm")}
-      />
+      <View style={{ alignItems: 'center', marginTop: 16 }}>
+        <FAB
+          icon="plus"
+          label="Cadastrar"
+          style={styles.fab}
+          onPress={() => navigation.navigate("SerieForm")}
+        />
+      </View>
     </View>
   );
 }
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 25,
-    backgroundColor: "grey", 
+    backgroundColor: "grey",
   },
   card: {
     borderRadius: 20,
@@ -153,9 +155,10 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   fab: {
-    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 35,
+    backgroundColor: "",
+    bottom: 50
   },
 });

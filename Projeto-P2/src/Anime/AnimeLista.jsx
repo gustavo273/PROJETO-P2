@@ -98,12 +98,14 @@ export default function AnimeLista({ navigation }) {
         />
       )}
 
-      <FAB
-        icon="plus"
-        label="Cadastrar"
-        style={styles.fab}
-        onPress={() => navigation.navigate("AnimeForm")}
-      />
+      <View style={{ alignItems: 'center', marginTop: 16 }}>
+        <FAB
+          icon="plus"
+          label="Cadastrar"
+          style={styles.fab}
+          onPress={() => navigation.navigate("AnimeForm")}
+        />
+      </View>
     </View>
   );
 }
@@ -152,9 +154,10 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   fab: {
-    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 35,
+    backgroundColor: "",
+    bottom: 50
   },
 });
