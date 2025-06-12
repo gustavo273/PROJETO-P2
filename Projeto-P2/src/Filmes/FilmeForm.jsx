@@ -12,8 +12,6 @@ const theme = {
     onSurfaceVariant: 'white',
     onSurface: 'white',
     outline: 'white',
-    surfaceVariant: 'black',
-    onSurfaceDisabled: 'gray'
   },
 };
 
