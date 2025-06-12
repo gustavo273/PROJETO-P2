@@ -20,7 +20,7 @@ export default function SerieForm({ navigation, route }) {
 
   const [titulo, setTitulo] = useState(serieAntiga.titulo || '')
   const [genero, setGenero] = useState(serieAntiga.genero || '')
-  const [duracao, setDuracao] = useState(serieAntiga.duracao || '')
+  const [temporada, setTemporada] = useState(serieAntiga.temporada || '')
   const [dataLancamento, setDataLancamento] = useState(serieAntiga.dataLancamento || '')
   const [classificacao, setClassificacao] = useState(serieAntiga.classificacao || '')
   const [trailerUrl, setTrailerUrl] = useState(serieAntiga.trailerUrl || '')
@@ -32,8 +32,8 @@ export default function SerieForm({ navigation, route }) {
     if (!titulo.trim()) novoErros.titulo = 'Título é obrigatório'
     if (!genero.trim()) novoErros.genero = 'Gênero é obrigatório'
 
-    if (!duracao || isNaN(duracao) || parseInt(duracao) <= 0)
-      novoErros.duracao = 'Duração inválida'
+    if (!temporada || isNaN(temporada) || parseInt(temporada) <= 0)
+      novoErros.temporada = 'Duração inválida'
 
     const ano = parseInt(dataLancamento)
     if (!dataLancamento || isNaN(ano) || ano < 1900 || ano > new Date().getFullYear())
@@ -52,7 +52,7 @@ export default function SerieForm({ navigation, route }) {
     const serie = {
       titulo,
       genero,
-      duracao,
+      temporada,
       dataLancamento,
       classificacao,
       trailerUrl
@@ -96,15 +96,15 @@ export default function SerieForm({ navigation, route }) {
         {errors.genero && <Text style={styles.errorText}>{errors.genero}</Text>}
 
         <TextInput
-          label="Duração (min)"
+          label="Temporadas"
           mode="outlined"
-          value={duracao.toString()}
-          onChangeText={setDuracao}
+          value={temporada.toString()}
+          onChangeText={setTemporada}
           keyboardType="numeric"
           style={styles.input}
           theme={{ roundness: 25 }}
           error={!!errors.duracao} />
-        {errors.duracao && <Text style={styles.errorText}>{errors.duracao}</Text>}
+        {errors.temporada && <Text style={styles.errorText}>{errors.temporada}</Text>}
 
         <TextInput
           label="Ano de Lançamento"

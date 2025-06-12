@@ -62,9 +62,9 @@ export default function SerieLista({ navigation }) {
             <Card.Content>
               <Text style={{ color: 'white' }}>Gênero: {item.genero}</Text>
               <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
-              <Text style={{ color: 'white' }}>Temporadas: {item.temporadas}</Text>
+              <Text style={{ color: 'white' }}>Temporadas: {item.temporada}</Text>
               <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
-              <Text style={{ color: 'white' }}>Ano de Estreia: {item.anoEstreia}</Text>
+              <Text style={{ color: 'white' }}>Ano de Estreia: {item.dataLancamento}</Text>
               <Divider style={{ marginVertical: 11, backgroundColor: '' }} />
               <Text style={{ color: 'white' }}>Classificação:</Text>
               <Chip icon="star" style={{ marginTop: 6, backgroundColor: 'black' }} textStyle={{ color: 'white' }}>
