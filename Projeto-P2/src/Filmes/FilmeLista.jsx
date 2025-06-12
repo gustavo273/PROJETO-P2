@@ -31,17 +31,20 @@ export default function FilmeLista({ navigation }) {
       "Tem certeza que deseja excluir este filme?",
       [
         { text: "Cancelar", style: "cancel" },
-        { text: "Excluir", style: "destructive", onPress: () => removerFilme(id) },
+        {
+          text: "Excluir",
+          style: "destructive",
+          onPress: () => removerFilme(id),
+        },
       ]
     );
   }
 
   function extrairVideoId(url) {
-    if (!url || typeof url !== 'string') return null;
+    if (!url || typeof url !== "string") return null;
     const match = url.match(/(?:\?v=|\.be\/)([^&\n?#]+)/);
     return match ? match[1] : null;
   }
-
 
   const renderCard = (item) => {
     const videoId = extrairVideoId(item.trailerUrl);
@@ -59,24 +62,46 @@ export default function FilmeLista({ navigation }) {
             </View>
           )}
           <View style={styles.infoContainer}>
-            <Card.Title title={item.titulo} titleStyle={{ fontWeight: "bold", color: "white" }} />
+            <Card.Title
+              title={item.titulo}
+              titleStyle={{ fontWeight: "bold", color: "white" }}
+            />
             <Card.Content>
-              <Text style={{ color: 'white' }}>Gênero: {item.genero}</Text>
-              <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
-              <Text style={{ color: 'white' }}>Duração: {item.duracao} min</Text>
-              <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
-              <Text style={{ color: 'white' }}>Lançamento: {item.dataLancamento}</Text>
-              <Divider style={{ marginVertical: 11, backgroundColor: '' }} />
-              <Text style={{ color: 'white' }}>Classificação:</Text>
-              <Chip icon="star" style={{ marginTop: 6, backgroundColor: 'black' }} textStyle={{ color: 'white' }}>
+              <Text style={{ color: "white" }}>Gênero: {item.genero}</Text>
+              <Divider
+                style={{ marginVertical: 11, backgroundColor: "white" }}
+              />
+              <Text style={{ color: "white" }}>
+                Duração: {item.duracao} min
+              </Text>
+              <Divider
+                style={{ marginVertical: 11, backgroundColor: "white" }}
+              />
+              <Text style={{ color: "white" }}>
+                Lançamento: {item.dataLancamento}
+              </Text>
+              <Divider style={{ marginVertical: 11, backgroundColor: "" }} />
+              <Text style={{ color: "white" }}>Classificação:</Text>
+              <Chip
+                icon="star"
+                style={{ marginTop: 6, backgroundColor: "black" }}
+                textStyle={{ color: "white" }}
+              >
                 {item.classificacao}
               </Chip>
             </Card.Content>
           </View>
         </View>
         <Card.Actions style={styles.actions}>
-          <Button icon="pencil" onPress={() => navigation.navigate("FilmeForm", item)} />
-          <Button icon="delete" onPress={() => confirmarRemocao(item.id)} buttonColor="red" />
+          <Button
+            icon="pencil"
+            onPress={() => navigation.navigate("FilmeForm", item)}
+          />
+          <Button
+            icon="delete"
+            onPress={() => confirmarRemocao(item.id)}
+            buttonColor="red"
+          />
         </Card.Actions>
       </Card>
     );
@@ -84,14 +109,20 @@ export default function FilmeLista({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {filmes.length === 0 && <Text style={{ textAlign: "center", marginTop: 40 }}>Nenhum filme cadastrado</Text>}
+      {filmes.length === 0 && (
+        <Text style={{ textAlign: "center", marginTop: 40 }}>
+          Nenhum filme cadastrado
+        </Text>
+      )}
       {filmes.length === 1 && (
-        <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+        >
           {renderCard(filmes[0])}
         </ScrollView>
       )}
       {filmes.length > 1 && (
-        
         <View style={styles.carouselWrapper}>
           <Carousel
             loop
@@ -106,9 +137,12 @@ export default function FilmeLista({ navigation }) {
           />
         </View>
       )}
-      <View style={{ alignItems: 'center', marginTop: 16 }}>
-        <FAB icon="plus" label="Cadastrar" style={styles.fab} onPress={() => navigation.navigate("FilmeForm")} />
-      </View>
+      <FAB
+        icon="plus"
+        label="Cadastrar"
+        style={styles.fab}
+        onPress={() => navigation.navigate("AnimeForm")}
+      />
     </View>
   );
 }
@@ -124,7 +158,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     width: screenWidth * 0.95,
     marginVertical: 16,
-    backgroundColor: '#121212',
+    backgroundColor: "#121212",
     elevation: 6,
     alignSelf: "center",
     paddingBottom: 10,
@@ -138,11 +172,11 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   video: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   infoContainer: {
     flex: 1.5,
@@ -155,15 +189,15 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   fab: {
+    position: "absolute",
     margin: 16,
     right: 0,
-    bottom: 35,
     backgroundColor: "lightgreen",
     bottom: 50,
   },
   carouselWrapper: {
-  marginTop: 70, 
-  alignItems: 'center',
-  justifyContent: 'center',
-}
+    marginTop: 70,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

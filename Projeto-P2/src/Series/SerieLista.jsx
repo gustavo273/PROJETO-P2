@@ -31,13 +31,17 @@ export default function SerieLista({ navigation }) {
       "Tem certeza que deseja excluir esta série?",
       [
         { text: "Cancelar", style: "cancel" },
-        { text: "Excluir", style: "destructive", onPress: () => removerSerie(id) },
+        {
+          text: "Excluir",
+          style: "destructive",
+          onPress: () => removerSerie(id),
+        },
       ]
     );
   }
 
   function extrairVideoId(url) {
-    if (!url || typeof url !== 'string') return null;
+    if (!url || typeof url !== "string") return null;
     const match = url.match(/(?:\?v=|\.be\/)([^&\n?#]+)/);
     return match ? match[1] : null;
   }
@@ -58,24 +62,46 @@ export default function SerieLista({ navigation }) {
             </View>
           )}
           <View style={styles.infoContainer}>
-            <Card.Title title={item.titulo} titleStyle={{ fontWeight: "bold", color: "white" }} />
+            <Card.Title
+              title={item.titulo}
+              titleStyle={{ fontWeight: "bold", color: "white" }}
+            />
             <Card.Content>
-              <Text style={{ color: 'white' }}>Gênero: {item.genero}</Text>
-              <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
-              <Text style={{ color: 'white' }}>Temporadas: {item.temporada}</Text>
-              <Divider style={{ marginVertical: 11, backgroundColor: 'white' }} />
-              <Text style={{ color: 'white' }}>Ano de Estreia: {item.dataLancamento}</Text>
-              <Divider style={{ marginVertical: 11, backgroundColor: '' }} />
-              <Text style={{ color: 'white' }}>Classificação:</Text>
-              <Chip icon="star" style={{ marginTop: 6, backgroundColor: 'black' }} textStyle={{ color: 'white' }}>
+              <Text style={{ color: "white" }}>Gênero: {item.genero}</Text>
+              <Divider
+                style={{ marginVertical: 11, backgroundColor: "white" }}
+              />
+              <Text style={{ color: "white" }}>
+                Temporadas: {item.temporada}
+              </Text>
+              <Divider
+                style={{ marginVertical: 11, backgroundColor: "white" }}
+              />
+              <Text style={{ color: "white" }}>
+                Ano de Estreia: {item.dataLancamento}
+              </Text>
+              <Divider style={{ marginVertical: 11, backgroundColor: "" }} />
+              <Text style={{ color: "white" }}>Classificação:</Text>
+              <Chip
+                icon="star"
+                style={{ marginTop: 6, backgroundColor: "black" }}
+                textStyle={{ color: "white" }}
+              >
                 {item.classificacao}
               </Chip>
             </Card.Content>
           </View>
         </View>
         <Card.Actions style={styles.actions}>
-          <Button icon="pencil" onPress={() => navigation.navigate("SerieForm", item)} />
-          <Button icon="delete" onPress={() => confirmarRemocao(item.id)} buttonColor="red" />
+          <Button
+            icon="pencil"
+            onPress={() => navigation.navigate("SerieForm", item)}
+          />
+          <Button
+            icon="delete"
+            onPress={() => confirmarRemocao(item.id)}
+            buttonColor="red"
+          />
         </Card.Actions>
       </Card>
     );
@@ -83,14 +109,21 @@ export default function SerieLista({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {series.length === 0 && <Text style={{ textAlign: "center", marginTop: 40 }}>Nenhuma série cadastrada</Text>}
+      {series.length === 0 && (
+        <Text style={{ textAlign: "center", marginTop: 40 }}>
+          Nenhuma série cadastrada
+        </Text>
+      )}
       {series.length === 1 && (
-        <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+        >
           {renderCard(series[0])}
         </ScrollView>
       )}
       {series.length > 1 && (
-       <View style={styles.carouselWrapper}>
+        <View style={styles.carouselWrapper}>
           <Carousel
             loop
             width={screenWidth}
@@ -104,9 +137,12 @@ export default function SerieLista({ navigation }) {
           />
         </View>
       )}
-      <View style={{ alignItems: 'center', marginTop: 16 }}>
-        <FAB icon="plus" label="Cadastrar" style={styles.fab} onPress={() => navigation.navigate("SerieForm")} />
-      </View>
+      <FAB
+        icon="plus"
+        label="Cadastrar"
+        style={styles.fab}
+        onPress={() => navigation.navigate("AnimeForm")}
+      />
     </View>
   );
 }
@@ -122,7 +158,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     width: screenWidth * 0.95,
     marginVertical: 16,
-    backgroundColor: '#121212',
+    backgroundColor: "#121212",
     elevation: 6,
     alignSelf: "center",
     paddingBottom: 10,
@@ -136,11 +172,11 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 200,
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   video: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   infoContainer: {
     flex: 1.5,
@@ -153,13 +189,15 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   fab: {
+    position: "absolute",
     margin: 16,
+    right: 0,
     backgroundColor: "lightgreen",
     bottom: 50,
   },
   carouselWrapper: {
-  marginTop: 70, 
-  alignItems: 'center',
-  justifyContent: 'center',
-}
+    marginTop: 70,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
