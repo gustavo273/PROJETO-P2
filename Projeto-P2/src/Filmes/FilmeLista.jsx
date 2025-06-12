@@ -141,7 +141,7 @@ export default function FilmeLista({ navigation }) {
         icon="plus"
         label="Cadastrar"
         style={styles.fab}
-        onPress={() => navigation.navigate("AnimeForm")}
+        onPress={() => navigation.navigate("FilmeForm")}
       />
     </View>
   );

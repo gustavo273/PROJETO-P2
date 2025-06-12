@@ -141,7 +141,7 @@ export default function SerieLista({ navigation }) {
         icon="plus"
         label="Cadastrar"
         style={styles.fab}
-        onPress={() => navigation.navigate("AnimeForm")}
+        onPress={() => navigation.navigate("SerieForm")}
       />
     </View>
   );
