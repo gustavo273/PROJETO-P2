@@ -20,11 +20,10 @@ export default function SerieForm({ navigation, route }) {
 
   const [titulo, setTitulo] = useState(serieAntiga.titulo || '')
   const [genero, setGenero] = useState(serieAntiga.genero || '')
-  const [temporadas, setTemporadas] = useState(serieAntiga.temporadas || '')
-  const [episodios, setEpisodios] = useState(serieAntiga.episodios || '')
-  const [dataEstreia, setDataEstreia] = useState(serieAntiga.dataEstreia || '')
+  const [duracao, setDuracao] = useState(serieAntiga.duracao || '')
+  const [dataLancamento, setDataLancamento] = useState(serieAntiga.dataLancamento || '')
   const [classificacao, setClassificacao] = useState(serieAntiga.classificacao || '')
-  const [imagemUrl, setImagemUrl] = useState(serieAntiga.imagemUrl || '')
+  const [trailerUrl, setTrailerUrl] = useState(serieAntiga.trailerUrl || '')
   const [errors, setErrors] = useState({})
 
   function validar() {
@@ -33,33 +32,17 @@ export default function SerieForm({ navigation, route }) {
     if (!titulo.trim()) novoErros.titulo = 'Título é obrigatório'
     if (!genero.trim()) novoErros.genero = 'Gênero é obrigatório'
 
-    if (!temporadas) {
-      novoErros.temporadas = 'Temporadas é obrigatório'
-    } else if (isNaN(temporadas) || parseInt(temporadas) <= 0) {
-      novoErros.temporadas = 'Número inválido'
-    }
+    if (!duracao || isNaN(duracao) || parseInt(duracao) <= 0)
+      novoErros.duracao = 'Duração inválida'
 
-    if (!episodios) {
-      novoErros.episodios = 'Episódios é obrigatório'
-    } else if (isNaN(episodios) || parseInt(episodios) <= 0) {
-      novoErros.episodios = 'Número inválido'
-    }
-
-    if (!dataEstreia) {
-      novoErros.dataEstreia = 'Ano de lançamento é obrigatório'
-    } else if (
-      isNaN(dataEstreia) ||
-      parseInt(dataEstreia) < 1900 ||
-      parseInt(dataEstreia) > new Date().getFullYear()
-    ) {
-      novoErros.dataEstreia = 'Ano inválido'
-    }
+    const ano = parseInt(dataLancamento)
+    if (!dataLancamento || isNaN(ano) || ano < 1900 || ano > new Date().getFullYear())
+      novoErros.dataLancamento = 'Ano inválido'
 
     if (!classificacao.trim()) novoErros.classificacao = 'Classificação é obrigatória'
-    if (!imagemUrl.trim()) novoErros.imagemUrl = 'URL da imagem é obrigatória'
+    if (!trailerUrl.trim()) novoErros.trailerUrl = 'URL do trailer é obrigatória'
 
     setErrors(novoErros)
-
     return Object.keys(novoErros).length === 0
   }
 
@@ -69,11 +52,10 @@ export default function SerieForm({ navigation, route }) {
     const serie = {
       titulo,
       genero,
-      temporadas,
-      episodios,
-      dataEstreia,
+      duracao,
+      dataLancamento,
       classificacao,
-      imagemUrl
+      trailerUrl
     }
 
     if (serieAntiga.id) {
@@ -85,16 +67,13 @@ export default function SerieForm({ navigation, route }) {
       alert('Série cadastrada com sucesso!')
     }
 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'SerieLista' }]
-    })
+    navigation.reset({ index: 0, routes: [{ name: 'SerieLista' }] })
   }
 
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
-        <Text variant="headlineMedium" style={[styles.title, { fontWeight: 'bold' }]}>{"CADASTRO".toUpperCase()}</Text>
+        <Text variant="headlineMedium" style={[styles.title, { fontWeight: 'bold' }]}>Cadastro de Série</Text>
 
         <TextInput
           label="Título"
@@ -103,8 +82,7 @@ export default function SerieForm({ navigation, route }) {
           onChangeText={setTitulo}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.titulo}
-        />
+          error={!!errors.titulo} />
         {errors.titulo && <Text style={styles.errorText}>{errors.titulo}</Text>}
 
         <TextInput
@@ -114,78 +92,55 @@ export default function SerieForm({ navigation, route }) {
           onChangeText={setGenero}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.genero}
-        />
+          error={!!errors.genero} />
         {errors.genero && <Text style={styles.errorText}>{errors.genero}</Text>}
 
         <TextInput
-          label="Temporadas"
+          label="Duração (min)"
           mode="outlined"
-          value={temporadas.toString()}
-          onChangeText={setTemporadas}
+          value={duracao.toString()}
+          onChangeText={setDuracao}
           keyboardType="numeric"
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.temporadas}
-        />
-        {errors.temporadas && <Text style={styles.errorText}>{errors.temporadas}</Text>}
-
-        <TextInput
-          label="Episódios"
-          mode="outlined"
-          value={episodios.toString()}
-          onChangeText={setEpisodios}
-          keyboardType="numeric"
-          style={styles.input}
-          theme={{ roundness: 25 }}
-          error={!!errors.episodios}
-        />
-        {errors.episodios && <Text style={styles.errorText}>{errors.episodios}</Text>}
+          error={!!errors.duracao} />
+        {errors.duracao && <Text style={styles.errorText}>{errors.duracao}</Text>}
 
         <TextInput
           label="Ano de Lançamento"
           mode="outlined"
-          value={dataEstreia}
-          onChangeText={setDataEstreia}
+          value={dataLancamento}
+          onChangeText={setDataLancamento}
           keyboardType="numeric"
-          render={props => (
-            <TextInputMask
-              {...props}
-              type={'datetime'}
-              options={{ format: 'YYYY' }}
-            />
-          )}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.dataEstreia}
-        />
-        {errors.dataEstreia && <Text style={styles.errorText}>{errors.dataEstreia}</Text>}
+          error={!!errors.dataLancamento}
+          render={props => (
+            <TextInputMask {...props} type={'datetime'} options={{ format: 'YYYY' }} />
+          )} />
+        {errors.dataLancamento && <Text style={styles.errorText}>{errors.dataLancamento}</Text>}
 
         <TextInput
-          label="Classificação Indicativa"
+          label="Classificação"
           mode="outlined"
           value={classificacao}
           onChangeText={setClassificacao}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.classificacao}
-        />
+          error={!!errors.classificacao} />
         {errors.classificacao && <Text style={styles.errorText}>{errors.classificacao}</Text>}
 
         <TextInput
-          label="Imagem (URL da capa)"
+          label="URL do Trailer (YouTube)"
           mode="outlined"
-          value={imagemUrl}
-          onChangeText={setImagemUrl}
+          value={trailerUrl}
+          onChangeText={setTrailerUrl}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.imagemUrl}
-        />
-        {errors.imagemUrl && <Text style={styles.errorText}>{errors.imagemUrl}</Text>}
+          error={!!errors.trailerUrl} />
+        {errors.trailerUrl && <Text style={styles.errorText}>{errors.trailerUrl}</Text>}
 
-        <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">
-          Salvar Série
-        </Button>
+        <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">Salvar Série</Button>
       </View>
     </PaperProvider>
   )

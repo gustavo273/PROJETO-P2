@@ -12,17 +12,17 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const Tab = createBottomTabNavigator();
 
 
-export default function App () {
+export default function App() {
   return (
     <PaperProvider>
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName = route.name === 'Filmes' ? 'movie-open' : 'television-classic';
-            return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
-          },
-           tabBarStyle: {
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+              let iconName = route.name === 'Filmes' ? 'movie-open' : 'television-classic';
+              return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+            },
+            tabBarStyle: {
               backgroundColor: '#000',
             },
             tabBarActiveTintColor: '#fff',
@@ -30,13 +30,13 @@ export default function App () {
             headerShown: false
           })}
         >
-        <Tab.Screen name="Filmes" component={FilmeStack} />
-        <Tab.Screen name="Séries" component={SerieStack} />
-        <Tab.Screen name="Animes" component={AnimeStack} />
-      </Tab.Navigator>
-    </NavigationContainer>
+          <Tab.Screen name="Filmes" component={FilmeStack} />
+          <Tab.Screen name="Séries" component={SerieStack} />
+          <Tab.Screen name="Animes" component={AnimeStack} />
+        </Tab.Navigator>
+      </NavigationContainer>
     </PaperProvider>
-    
+
   );
 }
 

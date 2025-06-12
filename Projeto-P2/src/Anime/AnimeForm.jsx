@@ -23,7 +23,7 @@ export default function AnimeForm({ navigation, route }) {
   const [duracao, setDuracao] = useState(animeAntigo.duracao || '')
   const [dataLancamento, setDataLancamento] = useState(animeAntigo.dataLancamento || '')
   const [classificacao, setClassificacao] = useState(animeAntigo.classificacao || '')
-  const [imagemUrl, setImagemUrl] = useState(animeAntigo.imagemUrl || '')
+  const [trailerUrl, setTrailerUrl] = useState(animeAntigo.trailerUrl || '')
   const [errors, setErrors] = useState({})
 
   function validar() {
@@ -32,27 +32,17 @@ export default function AnimeForm({ navigation, route }) {
     if (!titulo.trim()) novoErros.titulo = 'Título é obrigatório'
     if (!genero.trim()) novoErros.genero = 'Gênero é obrigatório'
 
-    if (!duracao) {
-      novoErros.duracao = 'Duração é obrigatória'
-    } else if (isNaN(duracao) || parseInt(duracao) <= 0) {
-      novoErros.duracao = 'Valor inválido'
-    }
+    if (!duracao || isNaN(duracao) || parseInt(duracao) <= 0)
+      novoErros.duracao = 'Duração inválida'
 
-    if (!dataLancamento) {
-      novoErros.dataLancamento = 'Ano de lançamento é obrigatório'
-    } else if (
-      isNaN(dataLancamento) ||
-      parseInt(dataLancamento) < 1900 ||
-      parseInt(dataLancamento) > new Date().getFullYear()
-    ) {
+    const ano = parseInt(dataLancamento)
+    if (!dataLancamento || isNaN(ano) || ano < 1900 || ano > new Date().getFullYear())
       novoErros.dataLancamento = 'Ano inválido'
-    }
 
     if (!classificacao.trim()) novoErros.classificacao = 'Classificação é obrigatória'
-    if (!imagemUrl.trim()) novoErros.imagemUrl = 'URL da imagem é obrigatória'
+    if (!trailerUrl.trim()) novoErros.trailerUrl = 'URL do trailer é obrigatória'
 
     setErrors(novoErros)
-
     return Object.keys(novoErros).length === 0
   }
 
@@ -65,7 +55,7 @@ export default function AnimeForm({ navigation, route }) {
       duracao,
       dataLancamento,
       classificacao,
-      imagemUrl
+      trailerUrl
     }
 
     if (animeAntigo.id) {
@@ -77,16 +67,13 @@ export default function AnimeForm({ navigation, route }) {
       alert('Anime cadastrado com sucesso!')
     }
 
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'AnimeLista' }]
-    })
+    navigation.reset({ index: 0, routes: [{ name: 'AnimeLista' }] })
   }
 
   return (
     <PaperProvider theme={theme}>
       <View style={styles.container}>
-        <Text variant="headlineMedium" style={[styles.title, { fontWeight: 'bold' }]}>{"CADASTRO".toUpperCase()}</Text>
+        <Text variant="headlineMedium" style={[styles.title, { fontWeight: 'bold' }]}>Cadastro</Text>
 
         <TextInput
           label="Título"
@@ -95,8 +82,8 @@ export default function AnimeForm({ navigation, route }) {
           onChangeText={setTitulo}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.titulo}
-        />
+          error={!!errors.titulo} />
+
         {errors.titulo && <Text style={styles.errorText}>{errors.titulo}</Text>}
 
         <TextInput
@@ -106,8 +93,8 @@ export default function AnimeForm({ navigation, route }) {
           onChangeText={setGenero}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.genero}
-        />
+          error={!!errors.genero} />
+
         {errors.genero && <Text style={styles.errorText}>{errors.genero}</Text>}
 
         <TextInput
@@ -118,8 +105,8 @@ export default function AnimeForm({ navigation, route }) {
           keyboardType="numeric"
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.duracao}
-        />
+          error={!!errors.duracao} />
+
         {errors.duracao && <Text style={styles.errorText}>{errors.duracao}</Text>}
 
         <TextInput
@@ -128,44 +115,38 @@ export default function AnimeForm({ navigation, route }) {
           value={dataLancamento}
           onChangeText={setDataLancamento}
           keyboardType="numeric"
-          render={props => (
-            <TextInputMask
-              {...props}
-              type={'datetime'}
-              options={{ format: 'YYYY' }}
-            />
-          )}
           style={styles.input}
           theme={{ roundness: 25 }}
           error={!!errors.dataLancamento}
-        />
+          render={props => (
+            <TextInputMask {...props} type={'datetime'} options={{ format: 'YYYY' }} />
+          )} />
+
         {errors.dataLancamento && <Text style={styles.errorText}>{errors.dataLancamento}</Text>}
 
         <TextInput
-          label="Classificação Indicativa"
+          label="Classificação"
           mode="outlined"
           value={classificacao}
           onChangeText={setClassificacao}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.classificacao}
-        />
+          error={!!errors.classificacao} />
+
         {errors.classificacao && <Text style={styles.errorText}>{errors.classificacao}</Text>}
 
         <TextInput
-          label="Imagem (URL da capa)"
+          label="URL do Trailer (YouTube)"
           mode="outlined"
-          value={imagemUrl}
-          onChangeText={setImagemUrl}
+          value={trailerUrl}
+          onChangeText={setTrailerUrl}
           style={styles.input}
           theme={{ roundness: 25 }}
-          error={!!errors.imagemUrl}
-        />
-        {errors.imagemUrl && <Text style={styles.errorText}>{errors.imagemUrl}</Text>}
+          error={!!errors.trailerUrl} />
 
-        <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">
-          Salvar Anime
-        </Button>
+        {errors.trailerUrl && <Text style={styles.errorText}>{errors.trailerUrl}</Text>}
+
+        <Button mode="contained" onPress={salvar} style={styles.button} buttonColor="green">Salvar Anime</Button>
       </View>
     </PaperProvider>
   )
