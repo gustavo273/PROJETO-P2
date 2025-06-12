@@ -90,17 +90,19 @@ export default function AnimeLista({ navigation }) {
         </ScrollView>
       )}
       {animes.length > 1 && (
-        <Carousel
-          loop
-          width={screenWidth}
-          height={screenWidth * 1.2}
-          autoPlay={true}
-          autoPlayInterval={3000}
-          data={animes}
-          scrollAnimationDuration={500}
-          renderItem={({ index }) => renderCard(animes[index])}
-          mode="parallax"
-        />
+        <View style={styles.carouselWrapper}>
+          <Carousel
+            loop
+            width={screenWidth}
+            height={screenWidth * 1.2}
+            autoPlay={true}
+            autoPlayInterval={3000}
+            data={animes}
+            scrollAnimationDuration={500}
+            renderItem={({ index }) => renderCard(animes[index])}
+            mode="parallax"
+          />
+        </View>
       )}
       <View style={{ alignItems: "center", marginTop: 16 }}>
         <FAB icon="plus" label="Cadastrar" style={styles.fab} onPress={() => navigation.navigate("AnimeForm")} />
@@ -156,4 +158,9 @@ const styles = StyleSheet.create({
     bottom: 50,
     backgroundColor: "lightgreen",
   },
+  carouselWrapper: {
+  marginTop: 70, 
+  alignItems: 'center',
+  justifyContent: 'center',
+}
 });

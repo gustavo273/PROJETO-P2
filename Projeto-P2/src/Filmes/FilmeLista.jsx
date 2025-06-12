@@ -37,10 +37,10 @@ export default function FilmeLista({ navigation }) {
   }
 
   function extrairVideoId(url) {
-  if (!url || typeof url !== 'string') return null;
-  const match = url.match(/(?:\?v=|\.be\/)([^&\n?#]+)/);
-  return match ? match[1] : null;
-}
+    if (!url || typeof url !== 'string') return null;
+    const match = url.match(/(?:\?v=|\.be\/)([^&\n?#]+)/);
+    return match ? match[1] : null;
+  }
 
 
   const renderCard = (item) => {
@@ -91,17 +91,20 @@ export default function FilmeLista({ navigation }) {
         </ScrollView>
       )}
       {filmes.length > 1 && (
-        <Carousel
-          loop
-          width={screenWidth}
-          height={screenWidth * 1.2}
-          autoPlay={true}
-          autoPlayInterval={3000}
-          data={filmes}
-          scrollAnimationDuration={500}
-          renderItem={({ index }) => renderCard(filmes[index])}
-          mode="parallax"
-        />
+        
+        <View style={styles.carouselWrapper}>
+          <Carousel
+            loop
+            width={screenWidth}
+            height={screenWidth * 1.2}
+            autoPlay={true}
+            autoPlayInterval={3000}
+            data={filmes}
+            scrollAnimationDuration={500}
+            renderItem={({ index }) => renderCard(filmes[index])}
+            mode="parallax"
+          />
+        </View>
       )}
       <View style={{ alignItems: 'center', marginTop: 16 }}>
         <FAB icon="plus" label="Cadastrar" style={styles.fab} onPress={() => navigation.navigate("FilmeForm")} />
@@ -158,4 +161,9 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgreen",
     bottom: 50,
   },
+  carouselWrapper: {
+  marginTop: 70, 
+  alignItems: 'center',
+  justifyContent: 'center',
+}
 });

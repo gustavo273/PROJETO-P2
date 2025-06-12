@@ -90,17 +90,19 @@ export default function SerieLista({ navigation }) {
         </ScrollView>
       )}
       {series.length > 1 && (
-        <Carousel
-          loop
-          width={screenWidth}
-          height={screenWidth * 1.2}
-          autoPlay={true}
-          autoPlayInterval={3000}
-          data={series}
-          scrollAnimationDuration={500}
-          renderItem={({ index }) => renderCard(series[index])}
-          mode="parallax"
-        />
+       <View style={styles.carouselWrapper}>
+          <Carousel
+            loop
+            width={screenWidth}
+            height={screenWidth * 1.2}
+            autoPlay={true}
+            autoPlayInterval={3000}
+            data={series}
+            scrollAnimationDuration={500}
+            renderItem={({ index }) => renderCard(series[index])}
+            mode="parallax"
+          />
+        </View>
       )}
       <View style={{ alignItems: 'center', marginTop: 16 }}>
         <FAB icon="plus" label="Cadastrar" style={styles.fab} onPress={() => navigation.navigate("SerieForm")} />
@@ -155,4 +157,9 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgreen",
     bottom: 50,
   },
+  carouselWrapper: {
+  marginTop: 70, 
+  alignItems: 'center',
+  justifyContent: 'center',
+}
 });
