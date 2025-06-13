@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Dimensions, StyleSheet, ScrollView, Alert } from "react-native";
-import { Button, Card, Text, FAB, Divider, Chip } from "react-native-paper";
+import {
+  Card,
+  Text,
+  FAB,
+  Divider,
+  Chip,
+  Avatar,
+  Surface,
+  IconButton,
+  ProgressBar,
+  Badge,
+} from "react-native-paper";
 import Carousel from "react-native-reanimated-carousel";
 import SerieService from "./SerieService";
 import { WebView } from "react-native-webview";
@@ -64,7 +75,8 @@ export default function SerieLista({ navigation }) {
           <View style={styles.infoContainer}>
             <Card.Title
               title={item.titulo}
-              titleStyle={{ fontWeight: "bold", color: "white" }}
+              left={(props) => <Avatar.Icon {...props} icon="television" />}
+              titleStyle={{ color: "white" }}
             />
             <Card.Content>
               <Text style={{ color: "white" }}>Gênero: {item.genero}</Text>
@@ -89,18 +101,36 @@ export default function SerieLista({ navigation }) {
               >
                 {item.classificacao}
               </Chip>
+              <Divider />
+              <Text style={{ color: "white", marginTop: 8 }}>
+                Popularidade:
+              </Text>
+              <ProgressBar
+                progress={0.6}
+                color="lightgreen"
+                style={{ height: 8, borderRadius: 5, marginTop: 4 }}
+              />
+              <Badge
+                style={{
+                  backgroundColor: "purple",
+                  alignSelf: "flex-start",
+                  marginTop: 10,
+                }}
+              >
+                Recém Adicionado
+              </Badge>
             </Card.Content>
           </View>
         </View>
         <Card.Actions style={styles.actions}>
-          <Button
+          <IconButton
             icon="pencil"
-            onPress={() => navigation.navigate("SerieForm", item)}
+            onPress={() => navigation.navigate("FilmeForm", item)}
           />
-          <Button
+          <IconButton
             icon="delete"
             onPress={() => confirmarRemocao(item.id)}
-            buttonColor="red"
+            iconColor="red"
           />
         </Card.Actions>
       </Card>
@@ -122,6 +152,13 @@ export default function SerieLista({ navigation }) {
           {renderCard(series[0])}
         </ScrollView>
       )}
+      <Surface
+        style={{ padding: 16, margin: 10, elevation: 4, borderRadius: 8 }}
+      >
+        <Text style={{ fontWeight: "bold" }}>
+          Total de Séries: {series.length}
+        </Text>
+      </Surface>
       {series.length > 1 && (
         <View style={styles.carouselWrapper}>
           <Carousel
@@ -196,7 +233,7 @@ const styles = StyleSheet.create({
     bottom: 50,
   },
   carouselWrapper: {
-    marginTop: 70,
+    marginTop: 10,
     alignItems: "center",
     justifyContent: "center",
   },
