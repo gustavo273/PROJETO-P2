@@ -125,7 +125,7 @@ export default function SerieLista({ navigation }) {
         <Card.Actions style={styles.actions}>
           <IconButton
             icon="pencil"
-            onPress={() => navigation.navigate("FilmeForm", item)}
+            onPress={() => navigation.navigate("SerieForm", item)}
           />
           <IconButton
             icon="delete"
